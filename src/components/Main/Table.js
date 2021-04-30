@@ -96,7 +96,7 @@ export default function StickyHeadTable() {
   const [open, setOpen] = useState(false);
   const [person, setPerson] = useState(initPer);
   const [editPer, setEditPer] = useState(initPer);
-  const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState(0);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -129,14 +129,38 @@ export default function StickyHeadTable() {
       handleClose,
     });
   };
-  const handleEdit = (id) => {
-    var indexx = state.people.findIndex((element) => element.id === id);
-    setIndex(indexx);
-    console.log(state.people[index]);
+
+  // edit fns
+
+  const handleEClose = () => {
+    setEOpen(false);
+    setEditPer(initPer);
   };
 
+  const handleEdit = (id) => {
+    var indexx = state.people.findIndex((element) => element.id === id);
+    setEditPer(state.people[indexx]);
+    console.log(indexx, 'indexx');
+    setEOpen(true);
+    setIndex(indexx);
+  };
+
+  const onChangeE = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    setEditPer({ ...editPer, [name]: value });
+  };
+  const handleEditE = () => {
+    setEOpen(false);
+    dispatch({
+      type: 'EDIT',
+      payload: { index, editPer },
+    });
+    handleEClose();
+    console.log(index, editPer);
+  };
   let Buttons = ({ id }) => (
-    <div>
+    <>
       <Button
         variant="contained"
         color="primary"
@@ -159,7 +183,7 @@ export default function StickyHeadTable() {
       >
         Delete
       </Button>
-    </div>
+    </>
   );
   return (
     <>
@@ -215,7 +239,7 @@ export default function StickyHeadTable() {
                   helperText="Please Select a Role"
                 >
                   {user.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
+                    <MenuItem key={option.value} value={option.label}>
                       {option.label}
                     </MenuItem>
                   ))}
@@ -238,6 +262,72 @@ export default function StickyHeadTable() {
                 </Button>
                 <Button onClick={handleSubmit} color="primary">
                   Add User
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+            {/* its for edit */}
+            <Dialog
+              open={eOpen}
+              onClose={handleEClose}
+              aria-labelledby="form-dialog-title"
+            >
+              <DialogTitle id="form-dialog-title">Edit User</DialogTitle>
+              <DialogContent>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  name="name"
+                  id="name"
+                  label="Name"
+                  type="text"
+                  value={editPer.name}
+                  onChange={(e) => onChangeE(e)}
+                  fullWidth
+                />
+                <TextField
+                  margin="dense"
+                  name="email"
+                  id="email"
+                  label="Email"
+                  type="email"
+                  value={editPer.email}
+                  onChange={(e) => onChangeE(e)}
+                  fullWidth
+                />
+                <TextField
+                  select
+                  label="Roles"
+                  name="roles"
+                  id="roles"
+                  value={editPer.roles}
+                  onChange={(e) => onChangeE(e)}
+                  helperText="Please Select a Role"
+                >
+                  {user.map((option) => (
+                    <MenuItem key={option.value} value={option.label}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  margin="dense"
+                  name="perms"
+                  id="perms"
+                  label="Extra Permissions"
+                  type="text"
+                  value={editPer.perms}
+                  onChange={(e) => onChangeE(e)}
+                  helperText="Please list extra permissions (if any)"
+                  fullWidth
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleEClose} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={handleEditE} color="primary">
+                  Edit User
                 </Button>
               </DialogActions>
             </Dialog>

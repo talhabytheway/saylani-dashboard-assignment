@@ -17,8 +17,13 @@ export const reducer = (state, action) => {
       people,
     };
   }
-  // if (action.type === 'EDIT') {
-  //   console.log(action.payload);
-  //   return state;
-  // }
+  if (action.type === 'EDIT') {
+    let { index, editPer, handleEClose } = action.payload;
+    let people = [...state.people];
+    people.splice(index, 1, editPer);
+    return {
+      ...state,
+      people: [...people],
+    };
+  }
 };
