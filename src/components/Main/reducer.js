@@ -18,7 +18,7 @@ export const reducer = (state, action) => {
     };
   }
   if (action.type === 'EDIT') {
-    let { index, editPer, handleEClose } = action.payload;
+    let { index, editPer } = action.payload;
     let people = [...state.people];
     people.splice(index, 1, editPer);
     return {
