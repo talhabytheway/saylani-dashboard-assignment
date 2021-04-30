@@ -7,6 +7,9 @@ export const reducer = (state, action) => {
     return {
       ...state,
       people: [...state.people, per],
+      modalOpen: true,
+      modalCotent: 'USER ADDED',
+      severity: 'success',
     };
   }
   if (action.type === 'DELETE') {
@@ -15,6 +18,9 @@ export const reducer = (state, action) => {
     return {
       ...state,
       people,
+      modalOpen: true,
+      modalCotent: 'USER DELETED',
+      severity: 'error',
     };
   }
   if (action.type === 'EDIT') {
@@ -24,6 +30,17 @@ export const reducer = (state, action) => {
     return {
       ...state,
       people: [...people],
+      modalOpen: true,
+      modalCotent: 'USER EDITED',
+      severity: 'info',
+    };
+  }
+  if (action.type === 'EMPTY') {
+    return {
+      ...state,
+      modalOpen: true,
+      modalCotent: 'EMPTY FIELD',
+      severity: 'warning',
     };
   }
 };

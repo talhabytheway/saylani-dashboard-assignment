@@ -23,8 +23,9 @@ import {
   DialogContent,
   DialogTitle,
   MenuItem,
+  Snackbar,
 } from '@material-ui/core';
-
+import Alert from '@material-ui/lab/Alert';
 const user = [
   {
     value: 'adm',
@@ -86,6 +87,9 @@ let initPer = {
 
 const initialState = {
   people: [],
+  modalOpen: false,
+  modalCotent: '',
+  severity: '',
 };
 export default function StickyHeadTable() {
   const classes = useStyles();
@@ -122,12 +126,17 @@ export default function StickyHeadTable() {
     setPerson(initPer);
   };
   const handleSubmit = () => {
-    let id = new Date().getTime().toString();
-    dispatch({
-      type: 'ADD_ITEM',
-      payload: { ...person, id },
-      handleClose,
-    });
+    const { name, email, roles, perms } = person;
+    if (name && email && roles && perms) {
+      let id = new Date().getTime().toString();
+      dispatch({
+        type: 'ADD_ITEM',
+        payload: { ...person, id },
+        handleClose,
+      });
+    } else {
+      dispatch({ type: 'EMPTY' });
+    }
   };
 
   // edit fns
@@ -151,13 +160,17 @@ export default function StickyHeadTable() {
     setEditPer({ ...editPer, [name]: value });
   };
   const handleEditE = () => {
-    setEOpen(false);
-    dispatch({
-      type: 'EDIT',
-      payload: { index, editPer },
-    });
-    handleEClose();
-    console.log(index, editPer);
+    const { name, email, roles, perms } = editPer;
+    if (name && email && roles && perms) {
+      setEOpen(false);
+      dispatch({
+        type: 'EDIT',
+        payload: { index, editPer },
+      });
+      handleEClose();
+    } else {
+      dispatch({ type: 'EMPTY' });
+    }
   };
   let Buttons = ({ id }) => (
     <>
@@ -187,6 +200,13 @@ export default function StickyHeadTable() {
   );
   return (
     <>
+      <Snackbar
+        open={state.modalOpen}
+        autoHideDuration={6000}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <Alert severity={state.severity}>{state.modalCotent}</Alert>
+      </Snackbar>
       <Grid container>
         <Grid item>
           <div>
