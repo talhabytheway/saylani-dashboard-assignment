@@ -218,19 +218,19 @@ export default function Dash() {
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Switch>
-              <Route exact path="#/">
+              <Route exact path="/">
                 <Main />
               </Route>
-              <Route exact path="#/dashboard">
+              <Route exact path="/#/dashboard">
                 <Dashboard name="Dashboard" />
               </Route>
               <Route exact path="#/roles">
                 <Dashboard name="Roles" />
               </Route>
-              <Route exact path="#/permissions">
+              <Route exact path="/#/permissions">
                 <Dashboard name="Permissions" />
               </Route>
-              <Route exact path="#/logout">
+              <Route exact path="/#/logout">
                 <Dashboard name="Logout" />
               </Route>
               <Route exact path="*">
