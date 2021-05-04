@@ -221,19 +221,19 @@ export default function Dash() {
               <Route exact path="/">
                 <Main />
               </Route>
-              <Route exact path="/#/dashboard">
+              <Route path="/dashboard">
                 <Dashboard name="Dashboard" />
               </Route>
-              <Route exact path="#/roles">
+              <Route path="/roles">
                 <Dashboard name="Roles" />
               </Route>
-              <Route exact path="/#/permissions">
+              <Route path="/permissions">
                 <Dashboard name="Permissions" />
               </Route>
-              <Route exact path="/#/logout">
+              <Route path="/logout">
                 <Dashboard name="Logout" />
               </Route>
-              <Route exact path="*">
+              <Route path="*">
                 <Dashboard name="ERROR 404, page not found" />
               </Route>
             </Switch>
