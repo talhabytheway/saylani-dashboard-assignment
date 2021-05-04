@@ -18,7 +18,7 @@ const mainListItems = (
   <div>
     <Link
       style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }}
-      to="/dashboard"
+      to="#/dashboard"
     >
       <ListItem button>
         <ListItemIcon>
@@ -30,7 +30,7 @@ const mainListItems = (
     <Divider />
     <Link
       style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }}
-      to="/"
+      to="#/"
     >
       <ListItem button>
         <ListItemIcon>
@@ -41,7 +41,7 @@ const mainListItems = (
     </Link>
     <Link
       style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }}
-      to="/roles"
+      to="#/roles"
     >
       <ListItem button>
         <ListItemIcon>
@@ -52,7 +52,7 @@ const mainListItems = (
     </Link>
     <Link
       style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }}
-      to="/permissions"
+      to="#/permissions"
     >
       <ListItem button>
         <ListItemIcon>
@@ -62,12 +62,17 @@ const mainListItems = (
       </ListItem>
     </Link>
     <Divider />
-    <ListItem button>
-      <ListItemIcon>
-        <ExitToAppIcon />
-      </ListItemIcon>
-      <ListItemText primary="Logout" />
-    </ListItem>
+    <Link
+      style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)' }}
+      to="#/logout"
+    >
+      <ListItem button>
+        <ListItemIcon>
+          <ExitToAppIcon />
+        </ListItemIcon>
+        <ListItemText primary="Logout" />
+      </ListItem>
+    </Link>
   </div>
 );
 
